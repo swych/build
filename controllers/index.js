@@ -10,6 +10,7 @@ module.exports = {
             var secretDoc = JSON.parse(body);
             if(!req.body || !req.body.hook || !req.body.hook.config
                 || req.body.hook.config.secret !== secretDoc.secret){
+                res.status(401);
                 return res.json({result:"not authorized"});
             }
             res.json({result:"success"});
