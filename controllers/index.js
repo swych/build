@@ -6,7 +6,7 @@ var exec = require('child_process').exec;
 function spawnBuild(app, cb){
 
 
-    child = exec('cd /var/app/' + app + ' && bash build.sh',
+    child = exec('cd /var/app/swych-' + app + ' && bash build.sh',
         function (error, stdout, stderr) {
             console.log('stdout: ' + stdout);
             console.log('stderr: ' + stderr);
@@ -32,7 +32,7 @@ module.exports = {
             spawnBuild(target,function(err){
                 if(err){
                     res.status(500);
-                    res.json({result:"error"});
+                    res.json({result:err});
                 }else{
                     res.json({result:"success"});
                 }
