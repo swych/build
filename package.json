@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/swych/build",
   "dependencies": {
-      "restify": "~3.0.1"
+    "restify": "~3.0.1",
+    "ecstatic": "~0.7.0"
   }
 }
