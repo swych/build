@@ -1,6 +1,25 @@
 //var spawn = require('spawn');
 var fs = require('fs');
 var PATH = require('path');
+var exec = require('child_process').exec;
+
+console.log('Spawned child pid: ' + grep.pid);
+grep.stdin.end();
+
+function spawnBuild(app, cb){
+
+
+    child = exec('cd /var/app/' + app + ' && bash build.sh',
+        function (error, stdout, stderr) {
+            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr);
+            if (error !== null) {
+                cb('exec error: ' + error);
+            }else{
+                cb(null);
+            }
+        });
+}
 
 module.exports = {
     hook:function(req,res){
@@ -10,10 +29,18 @@ module.exports = {
             var secretDoc = JSON.parse(body);
             if(!req.body || !req.body.hook || !req.body.hook.config
                 || req.body.hook.config.secret !== secretDoc.secret){
-                res.status(401);
-                return res.json({result:"not authorized"});
+                //res.status(401);
+                //return res.json({result:"not authorized"});
             }
-            res.json({result:"success"});
+            spawnBuild(target,function(err){
+                if(err){
+                    res.status(500);
+                    res.json({result:"error"});
+                }else{
+                    res.json({result:"success"});
+                }
+            });
+
         });
 
     }
