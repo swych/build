@@ -11,6 +11,7 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 server.get('/', respond);
 server.get('/hook/:target', controller.hook);
+server.post('/hook/:target', controller.hook);
 
 server.listen(8000, function() {
     console.log('%s listening at %s', server.name, server.url);
