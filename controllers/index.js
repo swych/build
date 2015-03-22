@@ -3,9 +3,6 @@ var fs = require('fs');
 var PATH = require('path');
 var exec = require('child_process').exec;
 
-console.log('Spawned child pid: ' + grep.pid);
-grep.stdin.end();
-
 function spawnBuild(app, cb){
 
 
